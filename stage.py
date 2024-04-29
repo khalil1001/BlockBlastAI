@@ -4,13 +4,16 @@ from piece import Piece
 from deck import Deck
 
 class Stage:
+    score = 0
     def __init__(self,dim=8):
         self.dim = dim
         self.matrix = np.zeros((dim,dim))
+        self.rewards = [10,20,60,120,200]
         self.deck = Deck()
     
     def play(self,piece :Piece, position:tuple):
         self.matrix[position[0]:position[0]+piece.dim[0],position[1]:position[1]+piece.dim[1]] += piece.matrix
+        self.score += piece.matrix.sum()
         self.deck.remove(piece)
         self.update()
     
@@ -42,6 +45,10 @@ class Stage:
             self.matrix[:,col] *= 0
         for row in rows:
             self.matrix[row] *= 0
+        if len(cols)+len(rows) != 0:
+            self.score += self.deck.multiplier*self.rewards[len(cols)+len(rows)-1]
+            self.deck.combo = True
+        
             
     def displayStage(self,screen,pos,squareSize=50,defaultColor='cadetblue2',fillColor = 'blue3'):
         mat = self.matrix
@@ -56,6 +63,10 @@ class Stage:
                 pygame.draw.rect(screen,'black',pygame.Rect(squarePos.x,squarePos.y,squareSize,squareSize),width=3)
         
         self.deck.displayDeck(screen,(screen.get_width() / 2, screen.get_height() / 2+6*squareSize))
+        
+        font = pygame.font.SysFont('Arial', 40)
+        text_surface = font.render('Score: '+str(self.score), True, 'white')
+        screen.blit(text_surface, (0,0))
 
     
     def __repr__(self) -> str:

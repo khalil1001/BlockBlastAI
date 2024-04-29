@@ -20,7 +20,7 @@ running = True
 dt = 0
 elapsed = 0
 
-delay = 0.5
+delay = 1
 i = 0
 
 squareSize = 50
@@ -51,9 +51,8 @@ while running:
     
     if elapsed > i*delay:
         possiblePieces = stg.getPossiblePieces()
-
         if len(possiblePieces) != 0:
-            p,pos = player.getNextMove(stg,possiblePieces)
+            p,pos = player.getNextMove(stg,possiblePieces,stg.score)
             stg.play(p,pos)
             i += 1
         else:

@@ -7,7 +7,7 @@ class Player:
     def __init__(self) -> None:
         pass
     
-    def getNextMove(self,stage:Stage,possiblePieces:list[Piece]):
+    def getNextMove(self,stage:Stage,possiblePieces:list[Piece],score):
         p = rd.choice(possiblePieces)
         pos = rd.choice(stage.getPossiblePos(p))
         return p,pos

@@ -26,6 +26,3 @@ class Piece:
                     pygame.draw.rect(screen,self.color,pygame.Rect(squarePos.x,squarePos.y,squareSize,squareSize))
                     pygame.draw.rect(screen,'black',pygame.Rect(squarePos.x,squarePos.y,squareSize,squareSize),width=3)
     
-if __name__ == "__main__":
-    p = Piece()
-    print(p)

@@ -1,10 +1,13 @@
 from piece import *
 
 class Deck:
+    combo = False
+    multiplier = 1
     def __init__(self,numberOfPieces=3,colors=['brown1','chocolate1','darkgoldenrod1','deeppink2']):
         self.numberOfPieces = numberOfPieces
         self.colors = colors
         self.initializeDeck()
+        
     
     def displayDeck(self,screen,pos,squareSize=50):
         space = screen.get_width()/(self.numberOfPieces+1)
@@ -12,6 +15,10 @@ class Deck:
             self.pieces[i-1].displayPiece(screen,(i*space,pos[1]))
     
     def initializeDeck(self):
+        if self.combo:
+            self.multiplier += 1
+        else:
+            self.multiplier = 1
         self.pieces = []
         for i in range(self.numberOfPieces):
             color = random.choice(self.colors)
